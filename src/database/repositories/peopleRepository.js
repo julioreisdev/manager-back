@@ -1,5 +1,13 @@
 import connection from "../connection.js";
 
+async function getPeopleById(id) {
+  const [rows] = await connection.query(
+    "select * from funcionarios where id_funcionario = ?",
+    [id]
+  );
+  return { rows };
+}
+
 async function getPeopleByCpf(cpf) {
   const [rows] = await connection.query(
     "select * from funcionarios where cpf = ?",
@@ -35,6 +43,7 @@ const peopleRepository = {
   getPeopleByCpf,
   getPeopleByRg,
   addPeople,
+  getPeopleById,
 };
 
 export default peopleRepository;

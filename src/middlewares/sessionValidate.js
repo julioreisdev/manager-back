@@ -1,3 +1,8 @@
+import jwt from "jsonwebtoken";
+import dotenv from "dotenv";
+
+dotenv.config();
+
 export async function sessionValidate(req, res, next) {
   const { authorization } = req.headers;
   const token = authorization?.replace("Bearer ", "");
@@ -6,6 +11,11 @@ export async function sessionValidate(req, res, next) {
     return res.sendStatus(401);
   }
 
-  res.locals.session = token;
-  next();
+  try {
+    const decoded = jwt.verify(token, process.env.SECRET);
+    res.locals.session = decoded;
+    next();
+  } catch (err) {
+    return res.sendStatus(401);
+  }
 }

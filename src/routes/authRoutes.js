@@ -5,6 +5,7 @@ import {
   signInController,
   signUpController,
 } from "../controllers/authControllers.js";
+import { sessionValidate } from "../middlewares/sessionValidate.js";
 
 const authRoutes = express.Router();
 
@@ -15,6 +16,7 @@ authRoutes.post(
 );
 authRoutes.post(
   "/autenticacao/cadastrar",
+  sessionValidate,
   validateSchema(signUpSchema),
   signUpController
 );
