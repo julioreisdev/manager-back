@@ -6,7 +6,7 @@ import peopleRepository from "../database/repositories/peopleRepository.js";
 
 dotenv.config();
 
-export async function signInService(data) {
+async function signIn(data) {
   try {
     const user = await userRepository.getUser(data.usuario);
     if (!user.rows.length) {
@@ -55,7 +55,7 @@ export async function signInService(data) {
   }
 }
 
-export async function signUpService(data) {
+async function signUp(data) {
   try {
     const user = await userRepository.getUser(data.usuario);
     if (user.rows.length) {
@@ -94,3 +94,10 @@ export async function signUpService(data) {
     };
   }
 }
+
+const authServices = {
+  signIn,
+  signUp,
+};
+
+export default authServices;

@@ -1,6 +1,6 @@
 import Joi from "joi";
 
-export const peopleSchema = Joi.object({
+const add = Joi.object({
   id_escolaridade: Joi.number().integer().required().messages({
     "number.base": "O campo ID da escolaridade deve ser um número",
     "number.integer": "O campo ID da escolaridade deve ser um número inteiro",
@@ -33,3 +33,9 @@ export const peopleSchema = Joi.object({
     "string.uri": "O campo foto deve ser uma URL válida",
   }),
 });
+
+const peopleSchemas = {
+  add,
+};
+
+export default peopleSchemas;

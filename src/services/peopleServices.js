@@ -1,6 +1,6 @@
 import peopleRepository from "../database/repositories/peopleRepository.js";
 
-export async function addPeopleService(data) {
+async function addPeople(data) {
   try {
     const peopleCpf = await peopleRepository.getPeopleByCpf(data.cpf);
     if (peopleCpf.rows.length) {
@@ -31,3 +31,9 @@ export async function addPeopleService(data) {
     };
   }
 }
+
+const peopleServices = {
+  addPeople,
+};
+
+export default peopleServices;

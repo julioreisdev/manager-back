@@ -1,24 +1,21 @@
 import express from "express";
 import { validateSchema } from "../middlewares/validateSchema.js";
-import { signInSchema, signUpSchema } from "../schemas/authSchemas.js";
-import {
-  signInController,
-  signUpController,
-} from "../controllers/authControllers.js";
+import authSchemas from "../schemas/authSchemas.js";
+import authControllers from "../controllers/authControllers.js";
 import { sessionValidate } from "../middlewares/sessionValidate.js";
 
 const authRoutes = express.Router();
 
 authRoutes.post(
-  "/autenticacao/entrar",
-  validateSchema(signInSchema),
-  signInController
+  "/auth/signin",
+  validateSchema(authSchemas.signIn),
+  authControllers.signIn
 );
 authRoutes.post(
-  "/autenticacao/cadastrar",
+  "/auth/signup",
   sessionValidate,
-  validateSchema(signUpSchema),
-  signUpController
+  validateSchema(authSchemas.signUp),
+  authControllers.signUp
 );
 
 export default authRoutes;

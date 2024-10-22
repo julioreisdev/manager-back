@@ -1,6 +1,6 @@
 import Joi from "joi";
 
-export const signInSchema = Joi.object({
+const signIn = Joi.object({
   usuario: Joi.string().required().messages({
     "string.base": "O campo usuário deve ser um texto",
     "string.empty": "O campo usuário não pode estar vazio",
@@ -13,7 +13,7 @@ export const signInSchema = Joi.object({
   }),
 });
 
-export const signUpSchema = Joi.object({
+export const signUp = Joi.object({
   id_funcionario: Joi.number().integer().required().messages({
     "number.base": "O campo ID do funcionário deve ser um número",
     "number.integer": "O campo ID do funcionário deve ser um número inteiro",
@@ -52,3 +52,10 @@ export const signUpSchema = Joi.object({
     "date.base": "O campo último acesso deve ser uma data válida",
   }),
 });
+
+const authSchemas = {
+  signIn,
+  signUp,
+};
+
+export default authSchemas;

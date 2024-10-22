@@ -1,6 +1,12 @@
-import { addPeopleService } from "../services/peopleServices.js";
+import peopleServices from "../services/peopleServices.js";
 
-export async function addPeopleController(req, res) {
-  const response = await addPeopleService(req.body);
+async function addPeople(req, res) {
+  const response = await peopleServices.addPeople();
   return res.status(response.status).send({ message: response.message });
 }
+
+const peopleControllers = {
+  addPeople,
+};
+
+export default peopleControllers;

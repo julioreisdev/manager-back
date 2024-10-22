@@ -1,11 +1,18 @@
-import { signInService, signUpService } from "../services/authServices.js";
+import authServices from "../services/authServices.js";
 
-export async function signInController(req, res) {
-  const response = await signInService(req.body);
+async function signIn(req, res) {
+  const response = await authServices.signIn(req.body);
   return res.status(response.status).send(response);
 }
 
-export async function signUpController(req, res) {
-  const response = await signUpService(req.body);
+async function signUp(req, res) {
+  const response = await authServices.signUp(req.body);
   return res.status(response.status).send(response);
 }
+
+const authControllers = {
+  signIn,
+  signUp,
+};
+
+export default authControllers;
