@@ -7,7 +7,7 @@ import { sessionValidate } from "../middlewares/sessionValidate.js";
 const peopleRoutes = express.Router();
 
 peopleRoutes.post(
-  "/people",
+  "/peoples",
   sessionValidate,
   validateSchema(peopleSchemas.add),
   peopleControllers.addPeople
