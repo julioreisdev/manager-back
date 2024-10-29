@@ -7,7 +7,7 @@ async function getAll() {
 
 async function addStudent(data) {
   const [rows] = await connection.query(
-    "INSERT INTO alunos (matricula, id_situacao_aluno, id_cidade, id_instancia, id_censo, nome, sexo, data_nascimento, pai_nome, pai_telefone, pai_rg, pai_cpf, mae_nome, mae_telefone, mae_rg, mae_cpf, id_moradia, parentesco_responsavel, responsavel_nome, responsavel_telefone, responsavel_rg, responsavel_cpf, endereco, bairro, check_alergia, obs_alergia, check_acompanhamento_medico, obs_acompanhamento_medico, check_restricao_atv_fisica, obs_restricao_atv_fisica, check_disturbio, obs_disturbio, instrucoes_disturbio, check_medicacao, obs_medicacao, check_restricao_alimentar, obs_restricao_alimentar, check_direito_imagem, num_sus, num_nis, check_certidao_antiga, certidao_nascimento, data_expedicao_certidao, certidao_cartorio, naturalidade, rg, cpf, check_trasnporte_escolar, check_pcd, obs_pcd, check_aee, foto) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+    "INSERT INTO alunos (matricula, id_situacao_aluno, id_cidade, id_instancia, id_censo, nome, sexo, data_nascimento, pai_nome, pai_telefone, pai_rg, pai_cpf, mae_nome, mae_telefone, mae_rg, mae_cpf, id_moradia, parentesco_responsavel, responsavel_nome, responsavel_telefone, responsavel_rg, responsavel_cpf, endereco, bairro, check_alergia, obs_alergia, check_acompanhamento_medico, obs_acompanhamento_medico, check_restricao_atv_fisica, obs_restricao_atv_fisica, check_disturbio, obs_disturbio, instrucoes_disturbio, check_medicacao, obs_medicacao, check_restricao_alimentar, obs_restricao_alimentar, check_direito_imagem, num_sus, num_nis, check_certidao_antiga, certidao_nascimento, data_expedicao_certidao, certidao_cartorio, naturalidade, rg, cpf, check_transporte_escolar, check_pcd, obs_pcd, check_aee, foto) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
     [
       data.matricula,
       data.id_situacao_aluno,
@@ -56,7 +56,7 @@ async function addStudent(data) {
       data.naturalidade || null,
       data.rg || null,
       data.cpf || null,
-      data.check_trasnporte_escolar || null,
+      data.check_transporte_escolar || null,
       data.check_pcd || null,
       data.obs_pcd || null,
       data.check_aee || null,

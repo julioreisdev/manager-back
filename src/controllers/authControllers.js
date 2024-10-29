@@ -6,7 +6,7 @@ async function signIn(req, res) {
 }
 
 async function signUp(req, res) {
-  const response = await authServices.signUp(req.body);
+  const response = await authServices.signUp(res, req.body);
   return res.status(response.status).send(response);
 }
 

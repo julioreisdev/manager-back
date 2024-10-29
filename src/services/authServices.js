@@ -25,13 +25,24 @@ async function signIn(data) {
       };
     }
 
+    if (user.tipo === "docente") {
+      return {
+        status: 403,
+        message: "Permissão negada, entre em contato com a coordenação!",
+      };
+    }
+
     const people = await peopleRepository.getPeopleById(
       user.rows[0].id_funcionario
     );
 
-    const token = jwt.sign({ usuario: data.usuario }, process.env.SECRET, {
-      expiresIn: "1d",
-    });
+    const token = jwt.sign(
+      { usuario: user.rows[0].usuario, tipo: user.rows[0].tipo },
+      process.env.SECRET,
+      {
+        expiresIn: "1d",
+      }
+    );
 
     delete user.rows[0].senha;
 
@@ -55,8 +66,35 @@ async function signIn(data) {
   }
 }
 
-async function signUp(data) {
+async function signUp(res, data) {
   try {
+    if (res.locals.session.tipo === "docente") {
+      return {
+        status: 403,
+        message: "Permissão negada!",
+      };
+    }
+    if (
+      data.tipo === "super_admin" &&
+      res.locals.session.tipo !== "super_admin"
+    ) {
+      return {
+        status: 403,
+        message: "Permissão negada!",
+      };
+    }
+
+    if (
+      data.tipo === "admin" &&
+      res.locals.session.tipo !== "super_admin" &&
+      res.locals.session.tipo !== "admin"
+    ) {
+      return {
+        status: 403,
+        message: "Permissão negada!",
+      };
+    }
+
     const user = await userRepository.getUser(data.usuario);
     if (user.rows.length) {
       return {
@@ -72,9 +110,13 @@ async function signUp(data) {
 
     delete data.senha;
 
-    const token = jwt.sign({ usuario: data.usuario }, process.env.SECRET, {
-      expiresIn: "1d",
-    });
+    const token = jwt.sign(
+      { usuario: data.usuario, tipo: data.tipo },
+      process.env.SECRET,
+      {
+        expiresIn: "1d",
+      }
+    );
 
     return {
       status: 201,

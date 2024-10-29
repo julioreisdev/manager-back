@@ -18,6 +18,8 @@ async function addPeople(data) {
       };
     }
 
+    console.log(data);
+
     await peopleRepository.addPeople(data);
     return {
       status: 201,

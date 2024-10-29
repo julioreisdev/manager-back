@@ -201,17 +201,17 @@ const add = Joi.object({
   cpf: Joi.string().optional().messages({
     "string.base": "O campo 'cpf' deve ser uma string.",
   }),
-  check_trasnporte_escolar: Joi.number()
+  check_transporte_escolar: Joi.number()
     .integer()
     .min(0)
     .max(1)
     .optional()
     .messages({
-      "number.base": "O campo 'check_trasnporte_escolar' deve ser um número.",
+      "number.base": "O campo 'check_transporte_escolar' deve ser um número.",
       "number.integer":
-        "O campo 'check_trasnporte_escolar' deve ser um inteiro.",
-      "number.min": "O campo 'check_trasnporte_escolar' deve ser 0 ou 1.",
-      "number.max": "O campo 'check_trasnporte_escolar' deve ser 0 ou 1.",
+        "O campo 'check_transporte_escolar' deve ser um inteiro.",
+      "number.min": "O campo 'check_transporte_escolar' deve ser 0 ou 1.",
+      "number.max": "O campo 'check_transporte_escolar' deve ser 0 ou 1.",
     }),
   check_pcd: Joi.number().integer().min(0).max(1).optional().messages({
     "number.base": "O campo 'check_pcd' deve ser um número.",
