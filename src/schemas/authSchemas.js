@@ -19,15 +19,6 @@ export const signUp = Joi.object({
     "number.integer": "O campo ID do funcionário deve ser um número inteiro",
     "any.required": "O campo ID do funcionário é obrigatório",
   }),
-  tipo: Joi.string()
-    .valid("super_admin", "admin", "gestor", "docente")
-    .required()
-    .messages({
-      "string.base": "O campo tipo deve ser um texto",
-      "any.only":
-        "O campo tipo deve ser uma das seguintes opções: 'super_admin', 'admin', 'gestor', 'docente'",
-      "any.required": "O campo tipo é obrigatório",
-    }),
   usuario: Joi.string().required().messages({
     "string.base": "O campo usuário deve ser um texto",
     "string.empty": "O campo usuário não pode estar vazio",
@@ -42,6 +33,11 @@ export const signUp = Joi.object({
     "number.base": "O campo status deve ser um número",
     "number.integer": "O campo status deve ser um número inteiro",
     "any.required": "O campo status é obrigatório",
+  }),
+  super_admin: Joi.number().integer().required().messages({
+    "number.base": "O campo super_admin deve ser um número",
+    "number.integer": "O campo super_admin deve ser um número inteiro",
+    "any.required": "O campo super_admin é obrigatório",
   }),
   acessos: Joi.number().integer().required().messages({
     "number.base": "O campo acessos deve ser um número",
