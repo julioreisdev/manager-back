@@ -12,6 +12,12 @@ instanceRoutes.get(
   instanceControllers.getInstances
 );
 
+instanceRoutes.get(
+  "/instances/:id",
+  sessionValidate,
+  instanceControllers.getUserInstances
+);
+
 instanceRoutes.post(
   "/instances",
   sessionValidate,

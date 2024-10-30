@@ -10,9 +10,15 @@ async function addInstance(req, res) {
   return res.status(response.status).send(response);
 }
 
+async function getUserInstances(req, res) {
+  const response = await instanceServices.getUserInstances(req.params);
+  return res.status(response.status).send(response);
+}
+
 const instanceControllers = {
   getInstances,
   addInstance,
+  getUserInstances,
 };
 
 export default instanceControllers;
