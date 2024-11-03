@@ -20,7 +20,7 @@ const add = Joi.object({
     "string.base": "O campo 'nome' deve ser uma string.",
     "any.required": "O campo 'nome' é obrigatório.",
   }),
-  sexo: Joi.string().required().messages({
+  sexo: Joi.string().valid("M", "F").required().messages({
     "string.base": "O campo 'sexo' deve ser uma string.",
     "any.required": "O campo 'sexo' é obrigatório.",
   }),
