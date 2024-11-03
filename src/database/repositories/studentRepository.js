@@ -1,7 +1,130 @@
 import connection from "../connection.js";
 
-async function getAll() {
-  const [rows] = await connection.query("select * from alunos");
+async function getAll(params) {
+  const {
+    instanciaId,
+    orderBy,
+    escolaId,
+    nomeAluno,
+    matriculaAluno,
+    anoEscolarId,
+    situacaoAlunoId,
+    anoLetivoId,
+    initialRow,
+    finalRow,
+  } = params;
+
+  const [rows] = await connection.query(
+    `SELECT 
+      aluno.matricula AS Matricula,
+      aluno.id_situacao_aluno,
+      aluno.id_cidade,
+      aluno.id_instancia,
+      aluno.id_censo,
+      aluno.nome AS Nome,
+      aluno.sexo,
+      aluno.data_nascimento,
+      aluno.pai_nome,
+      aluno.pai_telefone,
+      aluno.pai_rg,
+      aluno.pai_cpf,
+      aluno.mae_nome,
+      aluno.mae_telefone,
+      aluno.mae_rg,
+      aluno.mae_cpf,
+      aluno.id_moradia,
+      aluno.parentesco_responsavel,
+      aluno.responsavel_nome AS Responsavel,
+      aluno.responsavel_telefone,
+      aluno.responsavel_rg,
+      aluno.responsavel_cpf,
+      aluno.endereco,
+      aluno.bairro,
+      aluno.check_alergia,
+      aluno.obs_alergia,
+      aluno.check_acompanhamento_medico,
+      aluno.obs_acompanhamento_medico,
+      aluno.check_restricao_atv_fisica,
+      aluno.obs_restricao_atv_fisica,
+      aluno.check_disturbio,
+      aluno.obs_disturbio,
+      aluno.instrucoes_disturbio,
+      aluno.check_medicacao,
+      aluno.obs_medicacao,
+      aluno.check_restricao_alimentar,
+      aluno.obs_restricao_alimentar,
+      aluno.check_direito_imagem,
+      aluno.num_sus,
+      aluno.num_nis,
+      aluno.check_certidao_antiga,
+      aluno.certidao_nascimento,
+      aluno.data_expedicao_certidao,
+      aluno.certidao_cartorio,
+      aluno.naturalidade,
+      aluno.rg,
+      aluno.cpf,
+      aluno.check_transporte_escolar,
+      aluno.check_pcd,
+      aluno.obs_pcd,
+      aluno.check_aee,
+      aluno.foto,
+      ano_escolar.serie AS Serie,
+      turma.descricao AS Turma,
+      aluno_situacao.descricao AS Situacao,
+      ano_letivo.descricao AS Ano,
+      escola.nome_fantasia AS Escola
+    FROM 
+      alunos AS aluno
+    INNER JOIN 
+      turmas_aluno AS turma_aluno ON aluno.matricula = turma_aluno.aluno_matricula
+    INNER JOIN 
+      turmas AS turma ON turma_aluno.id_turma = turma.id_turma
+    INNER JOIN 
+      anos_escolares AS ano_escolar ON turma.id_ano_escolar = ano_escolar.id_ano_escolar
+    INNER JOIN 
+      anos_letivos AS ano_letivo ON ano_escolar.id_ano_letivo = ano_letivo.id_ano_letivo
+    INNER JOIN 
+      situacao_aluno AS aluno_situacao ON aluno.id_situacao_aluno = aluno_situacao.id_situacao_aluno
+    INNER JOIN
+      escolas AS escola ON ano_escolar.id_escola = escola.id_escola
+    WHERE 
+      (? IS NULL OR ano_escolar.id_escola = ?) AND
+      (? IS NULL OR LOWER(aluno.nome) LIKE LOWER(?)) AND
+      (? IS NULL OR aluno.matricula = ?) AND
+      (? IS NULL OR ano_escolar.id_ano_escolar = ?) AND
+      (? IS NULL OR aluno_situacao.id_situacao_aluno = ?) AND
+      (? IS NULL OR aluno.id_instancia = ?) AND
+      (? IS NULL OR ano_letivo.id_ano_letivo = ?)
+    ORDER BY 
+      CASE 
+        WHEN ? = 'A-Z' THEN aluno.nome 
+        WHEN ? = 'insertion_order' THEN aluno.matricula 
+        WHEN ? = 'matricula' THEN aluno.matricula 
+        ELSE NULL 
+      END ASC
+    LIMIT ?, ?`,
+    [
+      escolaId || null,
+      escolaId || null,
+      nomeAluno ? `%${nomeAluno}%` : null,
+      nomeAluno ? `%${nomeAluno}%` : null,
+      matriculaAluno || null,
+      matriculaAluno || null,
+      anoEscolarId || null,
+      anoEscolarId || null,
+      situacaoAlunoId || null,
+      situacaoAlunoId || null,
+      instanciaId,
+      instanciaId,
+      anoLetivoId || null,
+      anoLetivoId || null,
+      orderBy,
+      orderBy,
+      orderBy,
+      Number(initialRow),
+      Number(finalRow),
+    ]
+  );
   return { rows };
 }
 

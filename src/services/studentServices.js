@@ -1,13 +1,21 @@
 import studentRepository from "../database/repositories/studentRepository.js";
 
-async function getAll() {
+async function getAll(params) {
+  const convertedParams = {
+    intanciaId: params.id_instancia,
+    orderBy: params.order,
+    anoLetivoId: params.id_ano_letivo,
+    initialRow: params.initial_row,
+    finalRow: params.final_row,
+  };
   try {
-    const students = await studentRepository.getAll();
+    const students = await studentRepository.getAll(convertedParams);
     return {
       status: 200,
       data: {
         message: "Busca bem sucedida!",
         alunos: students.rows,
+        filtros: params,
       },
     };
   } catch (error) {
