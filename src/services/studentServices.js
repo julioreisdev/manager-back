@@ -2,7 +2,7 @@ import studentRepository from "../database/repositories/studentRepository.js";
 
 async function getAll(params) {
   const convertedParams = {
-    intanciaId: params.id_instancia,
+    instanciaId: params.id_instancia,
     orderBy: params.order,
     anoLetivoId: params.id_ano_letivo,
     initialRow: params.initial_row,
@@ -13,7 +13,7 @@ async function getAll(params) {
     return {
       status: 200,
       data: {
-        message: "Busca bem sucedida!",
+        message: "Busca bem sucedida!!",
         alunos: students.rows,
         filtros: params,
       },
