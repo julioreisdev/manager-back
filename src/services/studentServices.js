@@ -13,7 +13,7 @@ async function getAll(params) {
     return {
       status: 200,
       data: {
-        message: "Busca bem sucedida!!",
+        message: "Busca bem sucedida!",
         alunos: students.rows,
         filtros: params,
       },
